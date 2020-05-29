@@ -1,0 +1,48 @@
+{
+  "name": "baclava-ai",
+  "version": "2.0.0-pre-alpha",
+  "description": "A smart discord bot.",
+  "main": "bot/src/index.ts",
+  "repository": "https://gitlab.com/HotLava03/baclava-ai.git",
+  "author": "HotLava03",
+  "license": "GPLv3",
+  "private": false,
+  "scripts": {
+    "lint": "eslint . --ext .js,.ts,.tsx --ignore-pattern *.d.ts && tsc --noEmit"
+  },
+  "dependencies": {
+    "@types/node": "^14.0.5",
+    "@typescript-eslint/eslint-plugin": "^3.0.2",
+    "btoa": "^1.2.1",
+    "cleverbot-free": "^1.0.3",
+    "cookies": "^0.8.0",
+    "discord-oauth2": "^2.0.2",
+    "eris": "^0.13.1",
+    "express": "^4.17.1",
+    "typescript": "^3.9.3",
+    "typescript-eslint": "^0.0.1-alpha.0"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.7.4",
+    "@types/node": "^12.12.14",
+    "@typescript-eslint/eslint-plugin": "^2.23.0",
+    "@typescript-eslint/parser": "^2.23.0",
+    "eslint": "^7.1.0",
+    "eslint-config-standard": "^14.1.0",
+    "eslint-config-standard-react": "^9.2.0",
+    "eslint-config-standard-with-typescript": "^18.0.2",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-node": "^10.0.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-react": "^7.17.0",
+    "eslint-plugin-react-hooks": "^2.3.0",
+    "eslint-plugin-standard": "^4.0.1",
+    "husky": "^2.4.0",
+    "typescript": "^3.8.3"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm run lint"
+    }
+  }
+}
