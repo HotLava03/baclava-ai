@@ -1,9 +1,50 @@
-import { Embed } from 'eris'
+import { Embed, Message } from 'eris'
+import { Basic } from './commands/basic'
 
-export type Command = {
+export interface Command {
   name: string
   description: string
-  args: string[]
+  aliases?: string[]
+  category: Category
   minArgs: number
-  onCommand: () => string | Embed | undefined
+  onCommand: (message: Message, args: string[]) => string | Embed | undefined
 }
+
+export enum Category {
+  BASIC, FUN, MODERATION, OWNER, NONE
+}
+
+export const getCommandByName = (name: string): Command | undefined => {
+  if (commands.get(name)) return commands.get(name)
+  for (const cmdName in commands) {
+    const cmd = commands.get(cmdName)
+    if (cmd?.aliases?.includes(name)) return cmd
+  }
+}
+
+export const runCommand = (name: string, message: Message) => getCommandByName(name)?.onCommand(message, message.content.split(/\s+/).slice(1))
+
+const commands = new Map<String, Command>([
+  ['help', new Basic.Help()]
+])
+
+export const helpMessage = ((): Embed => {
+  const embed: Embed = {
+    type: '', // TODO: What's this?
+    title: 'Baclava help',
+    fields: []
+  }
+  let currentCategory = Category.NONE
+  for (const name in commands) {
+    const cmd = commands.get(name)
+    if (!cmd) continue
+    if (currentCategory !== cmd.category) {
+      currentCategory = cmd.category
+      embed.fields?.push({ name: format(currentCategory.toString()), value: '' })
+    }
+    embed.fields?.slice(-1)[0].value?.concat(cmd.name + ' - ' + cmd.description + '\n')
+  }
+  return embed
+}).call(this)
+
+const format = (str: string) => str.charAt(0).toUpperCase() + str.toLowerCase().slice(1)

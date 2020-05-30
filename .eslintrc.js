@@ -24,6 +24,7 @@ module.exports = {
     '@typescript-eslint/restrict-template-expressions': 'off',
     '@typescript-eslint/prefer-optional-chain': 'off',
     '@typescript-eslint/prefer-nullish-coalescing': 'off',
+    '@typescript-eslint/no-namespace': 'off',
     // Allow no-multi-str.
     'no-multi-str': 'off'
   },
