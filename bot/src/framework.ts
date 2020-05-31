@@ -1,4 +1,4 @@
-import { Embed, Message } from 'eris'
+import { Message, MessageContent, AdvancedMessageContent } from 'eris'
 import { Basic } from './commands/basic'
 
 export interface Command {
@@ -7,7 +7,7 @@ export interface Command {
   aliases?: string[]
   category: Category
   minArgs: number
-  onCommand: (message: Message, args: string[]) => string | Embed | undefined
+  onCommand: (message: Message, args: string[]) => string | MessageContent | AdvancedMessageContent | undefined
 }
 
 export enum Category {
@@ -28,11 +28,12 @@ const commands = new Map<String, Command>([
   ['help', new Basic.Help()]
 ])
 
-export const helpMessage = ((): Embed => {
-  const embed: Embed = {
-    type: '', // TODO: What's this?
-    title: 'Baclava help',
-    fields: []
+export const helpMessage = ((): MessageContent => {
+  const embed: MessageContent = {
+    embed: {
+      title: 'Baclava help',
+      fields: []
+    }
   }
   let currentCategory = Category.NONE
   for (const name in commands) {
@@ -40,9 +41,9 @@ export const helpMessage = ((): Embed => {
     if (!cmd) continue
     if (currentCategory !== cmd.category) {
       currentCategory = cmd.category
-      embed.fields?.push({ name: format(currentCategory.toString()), value: '' })
+      embed.embed?.fields?.push({ name: format(currentCategory.toString()), value: '' })
     }
-    embed.fields?.slice(-1)[0].value?.concat(cmd.name + ' - ' + cmd.description + '\n')
+    embed.embed?.fields?.slice(-1)[0].value?.concat(cmd.name + ' - ' + cmd.description + '\n')
   }
   return embed
 }).call(this)
