@@ -1,8 +1,9 @@
 {
     "compilerOptions": {
-        "module": "esnext",
+        "module": "commonjs",
         "moduleResolution": "node",
         "resolveJsonModule": true,
+        "noImplicitUseStrict": true,
         "jsx": "preserve",
         "target": "es2016",
         "noImplicitAny": true,
@@ -14,7 +15,6 @@
         "pretty": true,
         "skipLibCheck": true,
         "allowJs": true,
-        "strict": true,
         "lib": [
             "dom",
             "dom.iterable",
@@ -25,8 +25,9 @@
         "isolatedModules": true
     },
     "include": [
-        "bot/**/**/*",
-        "dashboard/**/**/*"
+        "bot/**/*/",
+        "dashboard/**/*",
+        "index.d.ts"
     ],
     "exclude": [
         "node_modules"

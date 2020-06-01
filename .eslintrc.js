@@ -11,10 +11,6 @@ module.exports = {
     project: './tsconfig.json'
   },
   rules: {
-    // React Hooks rules.
-    'react-hooks/rules-of-hooks': 'error',
-    'react-hooks/exhaustive-deps': 'warn',
-    // Make TypeScript ESLint less strict.
     '@typescript-eslint/member-delimiter-style': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/strict-boolean-expressions': 'off',
@@ -25,6 +21,7 @@ module.exports = {
     '@typescript-eslint/prefer-optional-chain': 'off',
     '@typescript-eslint/prefer-nullish-coalescing': 'off',
     '@typescript-eslint/no-namespace': 'off',
+    '@typescript-eslint/space-before-function-paren': 'off',
     // Allow no-multi-str.
     'no-multi-str': 'off'
   },

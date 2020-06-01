@@ -6,6 +6,7 @@ export interface Command {
   description: string
   aliases?: string[]
   category: Category
+  usage?: string
   minArgs: number
   onCommand: (message: Message, args: string[]) => string | MessageContent | AdvancedMessageContent | undefined
 }
@@ -27,25 +28,3 @@ export const runCommand = (name: string, message: Message) => getCommandByName(n
 const commands = new Map<String, Command>([
   ['help', new Basic.Help()]
 ])
-
-export const helpMessage = ((): MessageContent => {
-  const embed: MessageContent = {
-    embed: {
-      title: 'Baclava help',
-      fields: []
-    }
-  }
-  let currentCategory = Category.NONE
-  for (const name in commands) {
-    const cmd = commands.get(name)
-    if (!cmd) continue
-    if (currentCategory !== cmd.category) {
-      currentCategory = cmd.category
-      embed.embed?.fields?.push({ name: format(currentCategory.toString()), value: '' })
-    }
-    embed.embed?.fields?.slice(-1)[0].value?.concat(cmd.name + ' - ' + cmd.description + '\n')
-  }
-  return embed
-}).call(this)
-
-const format = (str: string) => str.charAt(0).toUpperCase() + str.toLowerCase().slice(1)
