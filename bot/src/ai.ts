@@ -62,9 +62,10 @@ export class UserHistory {
 
   public resetIfApplicable(timestamp: number): boolean {
     // 600000ms = 10min
-    console.log(timestamp - this.timestamp)
-    if (timestamp - this.timestamp < 6000) return false
-    console.log('Reset')
+    if (timestamp - this.timestamp < 600000) {
+      this.timestamp = timestamp
+      return false
+    }
     this.timestamp = timestamp
     this.conversations = []
     return true
