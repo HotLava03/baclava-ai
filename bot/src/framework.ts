@@ -1,5 +1,6 @@
 import { Message, MessageContent, AdvancedMessageContent } from 'eris'
 import { Basic } from './commands/basic'
+import { Owner } from './commands/owner'
 
 export interface Command {
   name: string
@@ -23,8 +24,14 @@ export const getCommandByName = (name: string): Command | undefined => {
   }
 }
 
-export const runCommand = (name: string, message: Message) => getCommandByName(name)?.onCommand(message, message.content.split(/\s+/).slice(1))
+export const runCommand = (name: string, message: Message) => {
+  const cmd = getCommandByName(name)
+  if (message.author.id !== '362753440801095681' &&
+    cmd?.category === Category.OWNER) return
+  return getCommandByName(name)?.onCommand(message, message.content.split(/\s+/).slice(1))
+}
 
 const commands = new Map<String, Command>([
-  ['help', new Basic.Help()]
+  ['help', new Basic.Help()],
+  ['eval', new Owner.Eval()]
 ])
