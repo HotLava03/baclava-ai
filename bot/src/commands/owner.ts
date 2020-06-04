@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { Command, Category, getCommandByName } from '../framework'
+import { Command, Category } from '../framework'
 import { Message } from 'eris'
 import { inspect } from 'util'
 

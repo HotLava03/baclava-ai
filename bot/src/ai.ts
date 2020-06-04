@@ -25,8 +25,8 @@ export class AI {
     const response: string = await cleverbot(content, AI.cache.get(id)?.getConversations() ?? [])
     let greet = ''
     if (this.addToCache(id, response, content)) greet = this.randomGreet()
-    // Sorry, your grammar is too good for my taste.
-    return greet + response.toLowerCase().replace('.', '').replace('?', '').trim()
+    // Sorry, your grammar is too good for my taste. And sorry cleverbot, you're baclava now.
+    return greet + response.toLowerCase().replace('.', '').replace('?', '').replace('cleverbot', 'baclava').trim()
   }
 
   /**

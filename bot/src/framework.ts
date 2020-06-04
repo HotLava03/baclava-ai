@@ -13,7 +13,7 @@ export interface Command {
 }
 
 export enum Category {
-  BASIC, FUN, MODERATION, OWNER, NONE
+  BASIC, FUN, MODERATION, TOOLS, OWNER, NONE
 }
 
 export const getCommandByName = (name: string): Command | undefined => {
@@ -26,9 +26,14 @@ export const getCommandByName = (name: string): Command | undefined => {
 
 export const runCommand = (name: string, message: Message) => {
   const cmd = getCommandByName(name)
-  if (message.author.id !== '362753440801095681' &&
-    cmd?.category === Category.OWNER) return
-  return getCommandByName(name)?.onCommand(message, message.content.split(/\s+/).slice(1))
+  if ((message.author.id !== '362753440801095681' &&
+    cmd?.category === Category.OWNER) || !cmd) return
+  const args = message.content.split(/\s+/).slice(1)
+  if (cmd.minArgs > args.length) {
+    message.channel.createMessage(!cmd.usage ? 'Invalid usage.' : `Usage: >>${cmd.name} ${cmd.usage}`)
+    return
+  }
+  return cmd.onCommand(message, args)
 }
 
 const commands = new Map<String, Command>([
